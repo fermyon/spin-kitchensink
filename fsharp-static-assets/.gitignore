@@ -1,0 +1,6 @@
+obj
+bin/Debug/net7.0/*
+!bin/Debug/net7.0/*.wasm
+bin/Release/net7.0/*
+!bin/Release/net7.0/*.wasm
+.ionide

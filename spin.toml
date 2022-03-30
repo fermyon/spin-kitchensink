@@ -74,7 +74,6 @@ environment = { PYTHONHOME = "/opt/wasi-python/lib/python3.11", PYTHONPATH = "/o
 route = "/python-hello"
 executor = { type = "wagi", argv = "${SCRIPT_NAME} /code/env.py ${SCRIPT_NAME} ${ARGS}" }
 
-
 [[component]]
 id = "assemblyscript-outbound-http"
 source = "assemblyscript-outbound-http/build/optimized.wasm"
@@ -82,4 +81,26 @@ environment = { SERVICE_URL = "http://localhost:3000/go-static/important.txt" }
 allowed_http_hosts = [ "http://localhost:3000" ]
 [component.trigger]
 route = "/as-outbound"
+
+[[component]]
+source = "csharp-hello/bin/Debug/net7.0/CSharpHello.wasm"
+id = "csharp-hello"
+[component.trigger]
+route = "/csharp-hello"
+executor = { type = "wagi" }
+
+[[component]]
+source = "csharp-static-assets/bin/Debug/net7.0/CSharpStaticAssets.wasm"
+id = "csharp-static-assets"
+files = [ { source = "csharp-static-assets/assets", destination = "/" } ]
+[component.trigger]
+route = "/csharp-static/..."
+executor = { type = "wagi" }
+
+[[component]]
+source = "fsharp-static-assets/bin/Debug/net7.0/FSharpStaticAssets.wasm"
+id = "fsharp-static-assets"
+files = [ { source = "fsharp-static-assets/assets", destination = "/" } ]
+[component.trigger]
+route = "/fsharp-static/..."
 executor = { type = "wagi" }
