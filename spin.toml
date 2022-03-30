@@ -1,0 +1,75 @@
+spin_version = "1"
+authors = ["Fermyon Engineering <engineering@fermyon.com>"]
+description = "A Spin example HTTP application with components in multiple languages."
+name = "spin-kitchensink"
+trigger = { type = "http", base = "/" }
+version = "1.0.0"
+
+
+[[component]]
+id = "rust-hello"
+source = "rust-hello/target/wasm32-wasi/release/rust_hello.wasm"
+[component.trigger]
+# this component will be invoked for requests on route `/hello`
+route = "/hello"
+
+[[component]]
+id = "rust-static-assets"
+source = "rust-static-assets/target/wasm32-wasi/release/rust_static_assets.wasm"
+# map all files from the `static/` directory into the WebAssembly module, at `/`.
+files = [{ source = "static-assets/", destination = "/" }]
+[component.trigger]
+# this component will be invoked for requests on any route starting with `/static/`
+route = "/static/..."
+
+[[component]]
+id = "rust-outbound-http"
+source = "rust-outbound-http/target/wasm32-wasi/release/rust_outbound_http.wasm"
+# set the service URL as an environment variable pointing to the previous component
+environment = { SERVICE_URL = "http://localhost:3000/static/important.txt" }
+# add the domain of the service URL to the list of allowed hosts, so the component 
+# is allowed to send a request to it.
+#
+# http://localhost:3000 is the default address Spin starts on, so if a custom
+# address was used, this should be updated
+allowed_http_hosts = [ "http://localhost:3000" ]
+[component.trigger]
+route = "/outbound"
+
+
+[[component]]
+id = "go-hello"
+source = "go-hello/main.wasm"
+[component.trigger]
+route = "/go-hello"
+# Spin components written in Go use the Wagi HTTP executor
+executor = { type = "wagi" }
+
+[[component]]
+id = "go-static-assets"
+source = "go-static-assets/main.wasm"
+# map all files from the `static/` directory into the WebAssembly module, at `/`.
+files = [{ source = "static-assets/", destination = "/" }]
+[component.trigger]
+# this component will be invoked for requests on any route starting with `/static/`
+route = "/go-static/..."
+# Spin components written in Go use the Wagi HTTP executor
+executor = { type = "wagi" }
+
+[[component]]
+id = "go-outbound-http"
+source = "go-outbound-http/main.wasm"
+environment = { SERVICE_URL = "http://localhost:3000/go-static/important.txt" }
+allowed_http_hosts = [ "http://localhost:3000" ]
+[component.trigger]
+route = "/go-outbound"
+executor = { type = "wagi" }
+
+[[component]]
+source = "python-hello/opt/wasi-python/bin/python3.wasm"
+id = "python-hello"
+files = [{ source = "python-hello/code", destination = "/code" }, { source = "python-hello/opt", destination = "/opt" }]
+environment = { PYTHONHOME = "/opt/wasi-python/lib/python3.11", PYTHONPATH = "/opt/wasi-python/lib/python3.11" }
+[component.trigger]
+route = "/python-hello"
+executor = { type = "wagi", argv = "${SCRIPT_NAME} /code/env.py ${SCRIPT_NAME} ${ARGS}" }
