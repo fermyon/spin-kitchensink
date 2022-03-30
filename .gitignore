@@ -1,2 +1,4 @@
 target/
 *.wasm
+node_modules
+build/

@@ -73,3 +73,13 @@ environment = { PYTHONHOME = "/opt/wasi-python/lib/python3.11", PYTHONPATH = "/o
 [component.trigger]
 route = "/python-hello"
 executor = { type = "wagi", argv = "${SCRIPT_NAME} /code/env.py ${SCRIPT_NAME} ${ARGS}" }
+
+
+[[component]]
+id = "assemblyscript-outbound-http"
+source = "assemblyscript-outbound-http/build/optimized.wasm"
+environment = { SERVICE_URL = "http://localhost:3000/go-static/important.txt" }
+allowed_http_hosts = [ "http://localhost:3000" ]
+[component.trigger]
+route = "/as-outbound"
+executor = { type = "wagi" }

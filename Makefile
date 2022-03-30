@@ -8,6 +8,7 @@ build:
 	cd go-hello && make
 	cd go-static-assets && make
 	cd go-outbound-http && make
+	cd assemblyscript-outbound-http && npm install && npm run asbuild
 
 .PHONY: serve
 serve:
