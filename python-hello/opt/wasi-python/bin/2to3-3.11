@@ -1,0 +1,5 @@
+#!/Users/areese/p/src/github.com/singlestore-labs/python-wasi/opt/wasi-python/bin/python3.11.wasm
+import sys
+from lib2to3.main import main
+
+sys.exit(main("lib2to3.fixes"))

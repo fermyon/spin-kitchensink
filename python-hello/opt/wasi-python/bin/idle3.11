@@ -1,0 +1,5 @@
+#!/Users/areese/p/src/github.com/singlestore-labs/python-wasi/opt/wasi-python/bin/python3.11.wasm
+
+from idlelib.pyshell import main
+if __name__ == '__main__':
+    main()
