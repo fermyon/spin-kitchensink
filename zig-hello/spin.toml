@@ -1,0 +1,20 @@
+spin_version = "1"
+authors = ["Fermyon Engineering <engineering@fermyon.com>"]
+description = "A Spin example HTTP application for Zig."
+name = "spin-kitchensink-zig"
+trigger = { type = "http", base = "/" }
+version = "1.0.0"
+
+[[component]]
+source = "main.wasm"
+id = "zig-hello"
+[component.trigger]
+route = "/zig-hello"
+executor = { type = "wagi" }
+
+[[component]]
+source = "hello.wasm"
+id = "c-hello"
+[component.trigger]
+route = "/c-hello"
+executor = { type = "wagi" }

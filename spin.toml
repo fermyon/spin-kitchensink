@@ -104,3 +104,10 @@ files = [ { source = "fsharp-static-assets/assets", destination = "/" } ]
 [component.trigger]
 route = "/fsharp-static/..."
 executor = { type = "wagi" }
+
+[[component]]
+source = "zig-hello/main.wasm"
+id = "zig-hello"
+[component.trigger]
+route = "/zig-hello"
+executor = { type = "wagi" }
