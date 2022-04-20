@@ -81,6 +81,7 @@ environment = { SERVICE_URL = "http://localhost:3000/go-static/important.txt" }
 allowed_http_hosts = [ "http://localhost:3000" ]
 [component.trigger]
 route = "/as-outbound"
+executor = { type = "wagi" }
 
 [[component]]
 source = "csharp-hello/bin/Debug/net7.0/CSharpHello.wasm"
