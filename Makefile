@@ -9,6 +9,7 @@ build:
 	cd go-static-assets && make
 	cd go-outbound-http && make
 	cd assemblyscript-outbound-http && npm install && npm run asbuild
+	cd zig-hello && make
 
 .PHONY: serve
 serve:

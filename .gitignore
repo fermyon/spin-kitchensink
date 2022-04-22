@@ -2,3 +2,4 @@ target/
 *.wasm
 node_modules
 build/
+!python-hello/opt/wasi-python/bin/python3.wasm
