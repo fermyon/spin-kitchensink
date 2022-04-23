@@ -6,6 +6,10 @@ To explore a component, read the accompanying section in this readme,
 and the corresponding component in `spin.toml`, and the code directory
 associated with the component.
 
+pre-requisites:
+1. [tinygo](https://tinygo.org/getting-started/install/)
+2. [zig](https://ziglang.org/learn/getting-started/#installing-zig)
+
 To build and run:
 
 ```
