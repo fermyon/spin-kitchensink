@@ -6,13 +6,13 @@ import (
 	"net/http"
 	"os"
 
-	spin "github.com/fermyon/spin/sdk/go/http"
+	spinhttp "github.com/fermyon/spin/sdk/go/http"
 )
 
 const pathInfoEnv = "PATH_INFO"
 
-func main() {
-	spin.HandleRequest(func(w http.ResponseWriter, r *http.Request) {
+func init() {
+	spinhttp.Handle(func(w http.ResponseWriter, r *http.Request) {
 		path := os.Getenv(pathInfoEnv)
 		buf, err := os.Open(path)
 		if err != nil {
@@ -24,3 +24,5 @@ func main() {
 		}
 	})
 }
+
+func main() {}
