@@ -116,7 +116,7 @@ executor = { type = "wagi" }
 [[component]]
 id = "validate"
 source = "cloudevents-abuse-protection/target/wasm32-wasi/release/cloudevents_abuse_protection.wasm"
-allowed_http_hosts = ["*"]
+allowed_http_hosts = ["insecure:allow-all"]
 [component.trigger]
 route = "/event"
 [component.build]
