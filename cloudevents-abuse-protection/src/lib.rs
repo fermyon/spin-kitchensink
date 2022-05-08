@@ -1,5 +1,5 @@
 use anyhow::Result;
-use cloudevents::{AttributesReader, Event};
+use cloudevents::{binding::http::*, AttributesReader};
 use spin_sdk::{
     http::{Request, Response},
     http_component,
@@ -54,13 +54,17 @@ fn validation(req: Request) -> Result<Response> {
         println!("received event");
         let msg = req.body().as_ref();
         if let Some(msg) = msg {
-            let event: Event = serde_json::from_slice(msg)?;
+            let event = to_event(req.headers(), msg.to_vec())?;
             println!("event source: {}", event.source());
             println!("event id: {}", event.id());
             println!("event type: {}", event.ty());
-            Ok(http::Response::builder().status(200).body(None)?)
+            Ok(http::Response::builder()
+                .status(200)
+                .body(req.body().to_owned())?)
         } else {
-            Ok(http::Response::builder().status(400).body(None)?)
+            Ok(http::Response::builder()
+                .status(400)
+                .body(Some("cannot parse to cloudevents".into()))?)
         }
     }
 }
