@@ -457,7 +457,7 @@ dependencies = [
 [[package]]
 name = "spin-macro"
 version = "0.1.0"
-source = "git+https://github.com/Mossaka/spin?branch=jiazho/http_wildcard#cf3069eed689fc89f9eae9c54ddf441ba3c447b6"
+source = "git+https://github.com/fermyon/spin#09ad9d7931122abcbd21b7081355069bf0418ce5"
 dependencies = [
  "anyhow",
  "bytes",
@@ -473,7 +473,7 @@ dependencies = [
 [[package]]
 name = "spin-sdk"
 version = "0.1.0"
-source = "git+https://github.com/Mossaka/spin?branch=jiazho/http_wildcard#cf3069eed689fc89f9eae9c54ddf441ba3c447b6"
+source = "git+https://github.com/fermyon/spin#09ad9d7931122abcbd21b7081355069bf0418ce5"
 dependencies = [
  "anyhow",
  "bytes",

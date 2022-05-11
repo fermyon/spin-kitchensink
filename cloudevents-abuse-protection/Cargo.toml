@@ -14,7 +14,7 @@ bytes = "1"
 # General-purpose crate with common HTTP types.
 http = "0.2"
 # The Spin SDK.
-spin-sdk = { git = "https://github.com/Mossaka/spin", branch = "jiazho/http_wildcard" }
+spin-sdk = { git = "https://github.com/fermyon/spin" }
 # Crate that generates Rust Wasm bindings from a WebAssembly interface.
 wit-bindgen-rust = { git = "https://github.com/bytecodealliance/wit-bindgen", rev = "2f46ce4cc072107153da0cefe15bdc69aa5b84d0" }
 # cloudevents SDK
