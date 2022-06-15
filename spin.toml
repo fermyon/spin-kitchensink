@@ -42,28 +42,24 @@ id = "go-hello"
 source = "go-hello/main.wasm"
 [component.trigger]
 route = "/go-hello"
-# Spin components written in Go use the Wagi HTTP executor
-executor = { type = "wagi" }
 
 [[component]]
 id = "go-static-assets"
 source = "go-static-assets/main.wasm"
 # map all files from the `static/` directory into the WebAssembly module, at `/`.
 files = [{ source = "static-assets/", destination = "/" }]
+
 [component.trigger]
-# this component will be invoked for requests on any route starting with `/static/`
+# this component will be invoked for requests on any route starting with `/go-static/`
 route = "/go-static/..."
-# Spin components written in Go use the Wagi HTTP executor
-executor = { type = "wagi" }
 
 [[component]]
 id = "go-outbound-http"
 source = "go-outbound-http/main.wasm"
-environment = { SERVICE_URL = "http://localhost:3000/go-static/important.txt" }
+environment = { SERVICE_URL = "http://localhost:3000/static/important.txt" }
 allowed_http_hosts = [ "http://localhost:3000" ]
 [component.trigger]
 route = "/go-outbound"
-executor = { type = "wagi" }
 
 [[component]]
 source = "python-hello/opt/wasi-python/bin/python3.wasm"
