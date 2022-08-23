@@ -23,7 +23,7 @@ takes an HTTP request and returns an HTTP response.
 
 ## `rust-static-assets`: A Rust component that reads static assets
 
-This is an example of how to mount use assets with a Spin component, and how
+This is an example of how to mount and use assets with a Spin component, and how
 to build a Rust component that opens and returns a static asset.
 
 This is just an example. For a more complete implementation of a file server as
@@ -46,7 +46,7 @@ route = "/static/..."
 ## `rust-outbound-http`: A Rust component that sends an HTTP request
 
 This is an example of a Rust component that sends sends an HTTP request. A
-requirement for allowing a component so send outbound HTTP requests is adding
+requirement for allowing a component to send outbound HTTP requests is adding
 the domain of the request to the list of `allowed_http_hosts`:
 
 ```toml
