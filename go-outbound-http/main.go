@@ -17,6 +17,7 @@ func init() {
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Cannot send HTTP request to %v: %v", url, err)
 			send404(w)
+			return
 		}
 
 		fmt.Fprintln(w, resp.Body)
