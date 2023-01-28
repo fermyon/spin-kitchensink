@@ -6,6 +6,7 @@ build:
 	cargo build --target wasm32-wasi --release --manifest-path=rust-outbound-http/Cargo.toml
 
 	cd go-hello && make
+	cd go-mux && make
 	cd go-static-assets && make
 	cd go-outbound-http && make
 	cd assemblyscript-outbound-http && npm install && npm run asbuild

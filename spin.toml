@@ -44,6 +44,12 @@ source = "go-hello/main.wasm"
 route = "/go-hello"
 
 [[component]]
+id = "go-mux"
+source = "go-mux/main.wasm"
+[component.trigger]
+route = "/go-mux/..."
+
+[[component]]
 id = "go-static-assets"
 source = "go-static-assets/main.wasm"
 # map all files from the `static/` directory into the WebAssembly module, at `/`.
