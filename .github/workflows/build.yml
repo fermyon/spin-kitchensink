@@ -1,0 +1,58 @@
+name: Build
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  SPIN_VERSION: 'v1.1.0'
+  RUST_VERSION: '1.68'
+  GO_VERSION: '1.20'
+  TINYGO_VERSION: 'v0.27.0'
+  ZIG_VERSION: '0.10.1'
+
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install spin
+        shell: bash
+        run: |
+          curl -LOs https://github.com/fermyon/spin/releases/download/${{ env.SPIN_VERSION }}/spin-${{ env.SPIN_VERSION }}-linux-amd64.tar.gz
+          tar zxvf spin-${{ env.SPIN_VERSION }}-linux-amd64.tar.gz
+          mv spin /usr/local/bin
+
+      - name: Install latest Rust stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ env.RUST_VERSION }}
+          default: true
+
+      - name: Install Wasm Rust target
+        shell: bash
+        run: |
+          rustup target add wasm32-wasi --toolchain ${{ env.RUST_VERSION }}
+
+      - name: Install Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Install TinyGo
+        uses: rajatjindal/setup-actions/tinygo@v0.0.1
+        with:
+          version: ${{ env.TINYGO_VERSION }}
+
+      - name: Install Zig
+        shell: bash
+        run: |
+          curl -Os https://ziglang.org/download/${{ env.ZIG_VERSION }}/zig-linux-x86_64-${{ env.ZIG_VERSION }}.tar.xz
+          tar xvf zig-linux-x86_64-${{ env.ZIG_VERSION }}.tar.xz
+          echo "PATH=$PATH:$(pwd)/zig-linux-x86_64-${{ env.ZIG_VERSION }}" >> $GITHUB_ENV
+
+      - name: Build
+        run: make build
+
